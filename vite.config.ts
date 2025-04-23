@@ -92,7 +92,9 @@ export default defineConfig((config) => {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
     build: {
-      target: 'esnext',
+      target: 'esnext',      
+      rollupOptions: {
+      external: ["crypto"], // Cloudflare Workers имеет свой аналог    
     },
     plugins: [
       nodePolyfills({
