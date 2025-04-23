@@ -94,11 +94,11 @@ export default defineConfig((config) => {
     build: {
       target: 'esnext',      
       rollupOptions: {
-      external: ["crypto"], // Cloudflare Workers имеет свой аналог    
+      external: [], // Cloudflare Workers имеет свой аналог    
     },
     plugins: [
       nodePolyfills({
-        include: ['buffer', 'process', 'util', 'stream'],
+        include: ['crypto', 'buffer', 'process', 'util', 'stream'],
         globals: {
           Buffer: true,
           process: true,
@@ -134,6 +134,14 @@ export default defineConfig((config) => {
       chrome129IssuePlugin(),
       config.mode === 'production' && optimizeCssModules({ apply: 'build' }),
     ],
+    resolve: {
+      alias: {
+        // Добавляем явные алиасы для Node.js модулей
+        crypto: 'crypto-browserify',
+        stream: 'stream-browserify',
+        path: 'path-browserify',
+      },
+    },
     envPrefix: [
       'VITE_',
       'OPENAI_LIKE_API_BASE_URL',
