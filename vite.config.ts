@@ -94,12 +94,19 @@ export default defineConfig((config) => {
     build: {
       target: 'esnext',      
       rollupOptions: {
-      external: [], // Cloudflare Workers имеет свой аналог    
+      external: [
+        // Добавьте все Node.js built-in модули, которые могут потребоваться
+          'events',
+          'stream',
+          'crypto',
+          'process',
+          'util'
+      ], // Cloudflare Workers имеет свой аналог    
     }
     },
     plugins: [
       nodePolyfills({
-        include: ['crypto', 'buffer', 'process', 'util', 'stream'],
+        include: ['events', 'crypto', 'buffer', 'process', 'util', 'stream'],
         globals: {
           Buffer: true,
           process: true,
