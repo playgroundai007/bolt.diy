@@ -95,6 +95,7 @@ export default defineConfig((config) => {
       target: 'esnext',      
       rollupOptions: {
       external: [], // Cloudflare Workers имеет свой аналог    
+    }
     },
     plugins: [
       nodePolyfills({
